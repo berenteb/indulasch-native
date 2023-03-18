@@ -37,6 +37,9 @@ export default ({ config }: ConfigContext) => {
     name: config.name + getEnvironment("", " Staging", " Dev"),
     extra: {
       apiUrl: process.env.API_URL,
+      eas: {
+        projectId: "635e5b7f-3bd0-476c-865f-2a8f04393712",
+      },
     },
   };
   if (config.ios?.bundleIdentifier) config.ios.bundleIdentifier = bundleId;
