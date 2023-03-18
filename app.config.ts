@@ -1,10 +1,10 @@
 import { ConfigContext } from "@expo/config";
 
-enum BundleIds {
-  "PROD" = "hu.kir-dev.indulasch",
-  "STAGING" = "hu.kir-dev.indulasch.staging",
-  "DEV" = "hu.kir-dev.indulasch.dev",
-}
+// enum BundleIds {
+//   "PROD" = "hu.kirdev.indulasch",
+//   "STAGING" = "hu.kirdev.indulasch.staging",
+//   "DEV" = "hu.kirdev.indulasch.dev",
+// }
 
 function getEnvironment<T>(prod: T, staging: T, dev: T): T {
   switch (process.env.ENVIRONMENT) {
@@ -26,12 +26,6 @@ require("dotenv").config({
 });
 
 export default ({ config }: ConfigContext) => {
-  const bundleId = getEnvironment(
-    BundleIds.PROD,
-    BundleIds.STAGING,
-    BundleIds.DEV
-  );
-
   config = {
     ...config,
     name: config.name + getEnvironment("", " Staging", " Dev"),
@@ -42,7 +36,5 @@ export default ({ config }: ConfigContext) => {
       },
     },
   };
-  if (config.ios?.bundleIdentifier) config.ios.bundleIdentifier = bundleId;
-  if (config.android?.package) config.android.package = bundleId;
   return config;
 };

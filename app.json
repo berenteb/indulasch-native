@@ -1,12 +1,12 @@
 {
   "expo": {
     "owner": "berenteb",
-    "name": "InduláSch",
+    "name": "IndulaSch",
     "slug": "indulasch",
+    "scheme": "indulasch",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "indulasch",
     "userInterfaceStyle": "automatic",
     "splash": {
       "image": "./assets/images/splash.png",
@@ -17,20 +17,26 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "hu.kirdev.indulasch",
+      "buildNumber": "3"
     },
     "android": {
+      "package": "hu.kirdev.indulasch",
       "icon": "./assets/images/rounded-icon.png",
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#52155A"
-      }
+      },
+      "versionCode": 2
     },
-    "plugins": [[
-      "expo-location",
-      {
-        "locationAlwaysAndWhenInUsePermission": "Engedélyezd a(z) $(PRODUCT_NAME) számára, hogy a jelenlegi helyzetedet használja!"
-      }
-    ]]
+    "plugins": [
+      [
+        "expo-location",
+        {
+          "locationAlwaysAndWhenInUsePermission": "Engedélyezd a(z) $(PRODUCT_NAME) számára, hogy a jelenlegi helyzetedet használja!"
+        }
+      ]
+    ]
   }
 }
