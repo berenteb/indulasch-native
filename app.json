@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "indulasch",
+    "name": "InduláSch",
     "slug": "indulasch",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -27,6 +27,12 @@
     "web": {
       "bundler": "metro",
       "favicon": "./assets/images/favicon.png"
-    }
+    },
+    "plugins": [[
+      "expo-location",
+      {
+        "locationAlwaysAndWhenInUsePermission": "Engedélyezd a(z) $(PRODUCT_NAME) számára, hogy a jelenlegi helyzetedet használja!"
+      }
+    ]]
   }
 }
