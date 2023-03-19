@@ -12,7 +12,7 @@ import { QueryClient, QueryClientProvider } from "react-query";
 import { LocationProvider } from "../components/LocationContext";
 import { SettingsProvider } from "../components/SettingsContext";
 
-export { ErrorBoundary } from "expo-router";
+export { ErrorBoundary } from "../components/ErrorBoundary";
 
 export default function RootLayout() {
   const [loaded, error] = useFonts({
@@ -50,10 +50,10 @@ function RootLayoutNav() {
           <ThemeProvider
             value={colorScheme === "dark" ? DarkTheme : DefaultTheme}
           >
-            <Stack>
-              <Stack.Screen name="index" options={{ headerShown: false }} />
-              <Stack.Screen name="details" options={{ headerShown: false }} />
-              <Stack.Screen name="settings" options={{ headerShown: false }} />
+            <Stack screenOptions={{ headerShown: false }}>
+              <Stack.Screen name="index" />
+              <Stack.Screen name="details" />
+              <Stack.Screen name="settings" />
             </Stack>
           </ThemeProvider>
         </LocationProvider>

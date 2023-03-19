@@ -23,9 +23,6 @@
       "android": {
         "autoIncrement": true
       },
-      "env": {
-        "ENVIRONMENT": "production"
-      },
       "ios": {
         "resourceClass": "m1-medium",
         "autoIncrement": true
