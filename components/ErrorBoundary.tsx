@@ -1,30 +1,33 @@
 import { MaterialIcons } from "@expo/vector-icons";
-import { useRouter } from "expo-router";
 import { StyleSheet, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { Button } from "../components/Button";
-import { Content } from "../components/Content";
-import { ScreenTitle } from "../components/ScreenTitle";
-import { useThemeColor } from "../components/Themed";
-import { Text } from "../components/Themed";
-import { Screen } from "../components/Screen";
+import { Button } from "./Button";
+import { Content } from "./Content";
+import { Screen } from "./Screen";
+import { ScreenTitle } from "./ScreenTitle";
+import { Text, useThemeColor } from "./Themed";
 
-export default function NotFoundScreen() {
+interface ErrorBoundaryProps {
+  error: Error;
+  retry: () => Promise<void>;
+}
+
+export function ErrorBoundary({ error, retry }: ErrorBoundaryProps) {
   const red = useThemeColor({}, "red");
   const { bottom } = useSafeAreaInsets();
-  const { back } = useRouter();
   return (
     <Screen style={{ paddingBottom: bottom }}>
-      <ScreenTitle>Ez milyen oldal?</ScreenTitle>
+      <ScreenTitle>Hiba történt</ScreenTitle>
       <Content style={styles.content}>
         <MaterialIcons name="error" color={red} size={50} />
         <Text style={styles.text}>
-          Az alkalmazás egy nem létező képernyőjére érkeztél.
+          Erre a hibára fel is készültünk, meg nem is.
         </Text>
+        <Text style={styles.subText}>{error.message}</Text>
       </Content>
       <View style={styles.buttonContainer}>
-        <Button onPress={back} leftIcon="chevron-left">
-          Vissza
+        <Button onPress={retry} leftIcon="autorenew">
+          Újrapróbálás
         </Button>
       </View>
     </Screen>
