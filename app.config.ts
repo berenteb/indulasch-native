@@ -6,29 +6,22 @@ import { ConfigContext } from "@expo/config";
 //   "DEV" = "hu.kirdev.indulasch.dev",
 // }
 
-function getEnvironment<T>(prod: T, staging: T, dev: T): T {
-  switch (process.env.ENVIRONMENT) {
-    case "production":
-      return prod;
-    case "staging":
-      return staging;
-    default:
-      return dev;
-  }
-}
+// function getEnvironment<T>(prod: T, staging: T, dev: T): T {
+//   switch (process.env.ENVIRONMENT) {
+//     case "production":
+//       return prod;
+//     case "staging":
+//       return staging;
+//     default:
+//       return dev;
+//   }
+// }
 
-require("dotenv").config({
-  path: getEnvironment(
-    "./.env.production",
-    "./.env.staging",
-    "./.env.development"
-  ),
-});
+require("dotenv").config();
 
 export default ({ config }: ConfigContext) => {
   config = {
     ...config,
-    name: config.name + getEnvironment("", " Staging", " Dev"),
     extra: {
       apiUrl: process.env.API_URL,
       eas: {

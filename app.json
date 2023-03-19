@@ -19,7 +19,7 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "hu.kirdev.indulasch",
-      "buildNumber": "3"
+      "buildNumber": "4"
     },
     "android": {
       "package": "hu.kirdev.indulasch",
@@ -28,7 +28,7 @@
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#52155A"
       },
-      "versionCode": 2
+      "versionCode": 3
     },
     "plugins": [
       [
