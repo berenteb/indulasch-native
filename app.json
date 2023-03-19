@@ -17,9 +17,12 @@
       "**/*"
     ],
     "ios": {
+      "config": {
+        "usesNonExemptEncryption": false
+      },
       "supportsTablet": true,
       "bundleIdentifier": "hu.kirdev.indulasch",
-      "buildNumber": "4"
+      "buildNumber": "5"
     },
     "android": {
       "package": "hu.kirdev.indulasch",
