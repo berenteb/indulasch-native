@@ -22,7 +22,11 @@
       },
       "supportsTablet": true,
       "bundleIdentifier": "hu.kirdev.indulasch",
-      "buildNumber": "6"
+      "buildNumber": "9",
+      "infoPlist": {
+        "NSLocationAlwaysAndWhenInUseUsageDescription": "Engedélyezd az $(PRODUCT_NAME) számára, hogy a jelenlegi helyzetedet használja a közeli indulások meghatározására!",
+        "NSLocationWhenInUseUsageDescription": "Engedélyezd az $(PRODUCT_NAME) számára, hogy a jelenlegi helyzetedet használja a közeli indulások meghatározására!"
+      }
     },
     "android": {
       "package": "hu.kirdev.indulasch",
@@ -31,13 +35,14 @@
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#52155A"
       },
-      "versionCode": 5
+      "versionCode": 7
     },
     "plugins": [
       [
         "expo-location",
         {
-          "isIosBackgroundLocationEnabled": "Engedélyezd a(z) $(PRODUCT_NAME) számára, hogy a jelenlegi helyzetedet használja!"
+          "isIosBackgroundLocationEnabled": "Engedélyezd az $(PRODUCT_NAME) számára, hogy a jelenlegi helyzetedet használja a közeli indulások meghatározására!",
+          "locationAlwaysAndWhenInUsePermission": "Engedélyezd az $(PRODUCT_NAME) számára, hogy a jelenlegi helyzetedet használja a közeli indulások meghatározására!"
         }
       ]
     ]
