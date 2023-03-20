@@ -22,7 +22,7 @@
       },
       "supportsTablet": true,
       "bundleIdentifier": "hu.kirdev.indulasch",
-      "buildNumber": "5"
+      "buildNumber": "6"
     },
     "android": {
       "package": "hu.kirdev.indulasch",
@@ -37,7 +37,7 @@
       [
         "expo-location",
         {
-          "locationAlwaysAndWhenInUsePermission": "Engedélyezd a(z) $(PRODUCT_NAME) számára, hogy a jelenlegi helyzetedet használja!"
+          "isIosBackgroundLocationEnabled": "Engedélyezd a(z) $(PRODUCT_NAME) számára, hogy a jelenlegi helyzetedet használja!"
         }
       ]
     ]
