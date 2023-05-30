@@ -10,7 +10,11 @@
     "build:ios": "eas build -p ios",
     "build:android": "eas build -p android",
     "submit:ios": "eas submit -p ios",
-    "submit:android": "eas submit -p android"
+    "submit:android": "eas submit -p android",
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix",
+    "prettier": "prettier -c .",
+    "prettier:fix": "prettier --write ."
   },
   "jest": {
     "preset": "jest-expo"

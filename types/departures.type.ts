@@ -30,15 +30,15 @@ export interface VehicleIcon {
 }
 
 export const VehicleIcons = {
-  TRAM: "tram",
-  BUS: "bus",
-  SUBWAY: "subway",
-  TROLLEYBUS: "trolleybus",
-  NIGHT_BUS: "night-bus",
-  SUBURBAN_RAILWAY: "suburban-railway",
-  FERRY: "ferry",
-  CHAIRLIFT: "chairlift",
-  SIKLO: "siklo",
-  AIRPLANE: "airplane",
-  RAIL: "rail",
+  TRAM: 'tram',
+  BUS: 'bus',
+  SUBWAY: 'subway',
+  TROLLEYBUS: 'trolleybus',
+  NIGHT_BUS: 'night-bus',
+  SUBURBAN_RAILWAY: 'suburban-railway',
+  FERRY: 'ferry',
+  CHAIRLIFT: 'chairlift',
+  SIKLO: 'siklo',
+  AIRPLANE: 'airplane',
+  RAIL: 'rail',
 };
