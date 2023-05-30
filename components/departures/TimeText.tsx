@@ -4,18 +4,16 @@ import { Text, useThemeColor } from '../Themed';
 
 interface TimeTextProps {
   isDelayed: boolean;
-  isUnknown: boolean;
-  departureText: string;
+  departureText: string | undefined;
 }
 
-export function TimeText({ isDelayed, departureText, isUnknown }: TimeTextProps) {
+export function TimeText({ isDelayed, departureText }: TimeTextProps) {
   const red = useThemeColor({}, 'red');
   const green = useThemeColor({}, 'green');
 
   let color = useThemeColor({}, 'secondaryText');
-  if (!isUnknown) color = green;
-  if (isDelayed) color = red;
-  return <Text style={[styles.text, { color }]}>{departureText}</Text>;
+  if (departureText) color = isDelayed ? red : green;
+  return <Text style={[styles.text, { color }]}>{departureText ?? 'Volt, nincs'}</Text>;
 }
 
 const styles = StyleSheet.create({

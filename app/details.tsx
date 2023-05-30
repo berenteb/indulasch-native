@@ -1,5 +1,4 @@
 import { MaterialIcons } from '@expo/vector-icons';
-import { encode } from 'base-64';
 import { useSearchParams } from 'expo-router';
 import { useMemo, useRef } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
@@ -23,14 +22,9 @@ export default function Details(): JSX.Element {
   const { style, isDelayed, headsign, alert } = JSON.parse(params.departure as string) as Departure;
 
   const selectedDepartureText = useMemo(() => {
-    try {
-      return data?.departures.find(
-        (dep) => encode(dep.style.icon.text + dep.headsign) === encode(style.icon.text + headsign)
-      )?.departureText;
-    } catch (e) {
-      return undefined;
-    }
-  }, [style, data]);
+    return data?.departures.find((dep) => dep.style.icon.text + dep.headsign === style.icon.text + headsign)
+      ?.departureText;
+  }, [data, style.icon.text, headsign]);
 
   return (
     <Screen>
@@ -42,11 +36,7 @@ export default function Details(): JSX.Element {
         <Content>
           <View style={styles.horizontal}>
             <Route style={style} />
-            <TimeText
-              isUnknown={!selectedDepartureText}
-              isDelayed={isDelayed}
-              departureText={selectedDepartureText ?? 'Volt, nincs'}
-            />
+            <TimeText isDelayed={isDelayed} departureText={selectedDepartureText} />
           </View>
           <Headsign headsign={headsign} style={styles.headsign} />
           {!!alert && alert.length > 0 && (

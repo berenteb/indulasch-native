@@ -27,7 +27,7 @@ export function Field({ departure }: FieldProps) {
       <View style={[styles.container, { backgroundColor }]}>
         <Route style={style} alert={alert} />
         <Headsign headsign={headsign} />
-        <TimeText departureText={departureText} isUnknown={!departureText} isDelayed={isDelayed} />
+        <TimeText departureText={departureText} isDelayed={isDelayed} />
       </View>
     </Pressable>
   );
