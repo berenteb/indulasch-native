@@ -1,38 +1,34 @@
-import { MaterialIcons } from "@expo/vector-icons";
-import { encode } from "base-64";
-import { useSearchParams } from "expo-router";
-import { useMemo, useRef } from "react";
-import { ScrollView, StyleSheet, View } from "react-native";
+import { MaterialIcons } from '@expo/vector-icons';
+import { encode } from 'base-64';
+import { useSearchParams } from 'expo-router';
+import { useMemo, useRef } from 'react';
+import { ScrollView, StyleSheet, View } from 'react-native';
 
-import { BackButton } from "../components/BackButton";
-import { Content } from "../components/Content";
-import { Headsign } from "../components/departures/Headsign";
-import { Route } from "../components/departures/Route";
-import { TimeText } from "../components/departures/TimeText";
-import { Screen } from "../components/Screen";
-import { ScreenTitle } from "../components/ScreenTitle";
-import { Text } from "../components/Themed";
-import { TitleBar } from "../components/TitleBar";
-import { useDepartures } from "../network/useDepartures";
-import { Departure } from "../types/departures.type";
+import { BackButton } from '../components/BackButton';
+import { Content } from '../components/Content';
+import { Headsign } from '../components/departures/Headsign';
+import { Route } from '../components/departures/Route';
+import { TimeText } from '../components/departures/TimeText';
+import { Screen } from '../components/Screen';
+import { ScreenTitle } from '../components/ScreenTitle';
+import { Text } from '../components/Themed';
+import { TitleBar } from '../components/TitleBar';
+import { useDepartures } from '../network/useDepartures';
+import { type Departure } from '../types/departures.type';
 
-export default function Details() {
+export default function Details(): JSX.Element {
   const sw = useRef<ScrollView>(null);
   const params = useSearchParams();
   const { data } = useDepartures();
-  const { style, isDelayed, headsign, alert } = JSON.parse(
-    params.departure as string
-  ) as Departure;
+  const { style, isDelayed, headsign, alert } = JSON.parse(params.departure as string) as Departure;
 
   const selectedDepartureText = useMemo(() => {
     try {
       return data?.departures.find(
-        (dep) =>
-          encode(dep.style.icon.text + dep.headsign) ===
-          encode(style.icon.text + headsign)
+        (dep) => encode(dep.style.icon.text + dep.headsign) === encode(style.icon.text + headsign)
       )?.departureText;
     } catch (e) {
-      return;
+      return undefined;
     }
   }, [style, data]);
 
@@ -49,14 +45,14 @@ export default function Details() {
             <TimeText
               isUnknown={!selectedDepartureText}
               isDelayed={isDelayed}
-              departureText={selectedDepartureText ?? "Volt, nincs"}
+              departureText={selectedDepartureText ?? 'Volt, nincs'}
             />
           </View>
           <Headsign headsign={headsign} style={styles.headsign} />
-          {alert && alert.length > 0 && (
+          {!!alert && alert.length > 0 && (
             <View style={styles.alertsContainer}>
               <View style={styles.alertsTitleContainer}>
-                <MaterialIcons name="error" size={20} color="orange" />
+                <MaterialIcons name='error' size={20} color='orange' />
                 <Text style={styles.alertsTitle}>Figyelmeztetések</Text>
               </View>
               {alert.map((a, i) => (
@@ -74,26 +70,26 @@ export default function Details() {
 
 const styles = StyleSheet.create({
   horizontal: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
   headsign: {
-    textAlign: "left",
+    textAlign: 'left',
     flex: 0,
   },
   alertsContainer: {
     gap: 5,
-    justifyContent: "flex-start",
-    alignItems: "flex-start",
+    justifyContent: 'flex-start',
+    alignItems: 'flex-start',
   },
   alertsTitleContainer: {
-    flexDirection: "row",
-    alignItems: "center",
+    flexDirection: 'row',
+    alignItems: 'center',
     gap: 5,
   },
   alertsTitle: {
-    color: "orange",
+    color: 'orange',
   },
   alertItem: {},
 });

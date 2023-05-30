@@ -1,5 +1,6 @@
-import { StyleSheet } from "react-native";
-import { Text, TextProps } from "../Themed";
+import { StyleSheet } from 'react-native';
+
+import { Text, TextProps } from '../Themed';
 
 interface HeadsignProps extends TextProps {
   headsign: string;
@@ -16,6 +17,6 @@ export function Headsign({ headsign, style, ...props }: HeadsignProps) {
 const styles = StyleSheet.create({
   headsign: {
     flex: 1,
-    textAlign: "center",
+    textAlign: 'center',
   },
 });

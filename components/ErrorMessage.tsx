@@ -1,6 +1,7 @@
-import { MaterialIcons } from "@expo/vector-icons";
-import { StyleSheet, View } from "react-native";
-import { Text, useThemeColor } from "./Themed";
+import { MaterialIcons } from '@expo/vector-icons';
+import { StyleSheet, View } from 'react-native';
+
+import { Text, useThemeColor } from './Themed';
 
 interface ErrorMessageProps {
   message: string;
@@ -8,7 +9,7 @@ interface ErrorMessageProps {
 }
 
 export function ErrorMessage({ message, iconName }: ErrorMessageProps) {
-  const color = useThemeColor({}, "red");
+  const color = useThemeColor({}, 'red');
   return (
     <View style={styles.container}>
       <MaterialIcons name={iconName} color={color} size={50} />
@@ -19,12 +20,12 @@ export function ErrorMessage({ message, iconName }: ErrorMessageProps) {
 
 const styles = StyleSheet.create({
   container: {
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
     gap: 5,
     margin: 20,
   },
   message: {
-    textAlign: "center",
+    textAlign: 'center',
   },
 });

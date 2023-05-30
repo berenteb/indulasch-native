@@ -1,8 +1,9 @@
-import { MaterialIcons } from "@expo/vector-icons";
-import { StyleSheet, View } from "react-native";
-import { Style } from "../../types/departures.type";
-import { RouteName } from "./RouteName";
-import { VehicleIcon } from "./VehicleIcon";
+import { MaterialIcons } from '@expo/vector-icons';
+import { StyleSheet, View } from 'react-native';
+
+import { Style } from '../../types/departures.type';
+import { RouteName } from './RouteName';
+import { VehicleIcon } from './VehicleIcon';
 
 interface RouteProps {
   style: Style;
@@ -15,12 +16,7 @@ export function Route({ style, alert }: RouteProps) {
       <VehicleIcon name={style.vehicleIcon.name} />
       <RouteName style={style} />
       {alert && alert.length > 0 && (
-        <MaterialIcons
-          name="error-outline"
-          size={25}
-          color="orange"
-          style={{ alignSelf: "center" }}
-        />
+        <MaterialIcons name='error-outline' size={25} color='orange' style={{ alignSelf: 'center' }} />
       )}
     </View>
   );
@@ -28,8 +24,8 @@ export function Route({ style, alert }: RouteProps) {
 
 const styles = StyleSheet.create({
   route: {
-    flexDirection: "row",
-    justifyContent: "flex-start",
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
     gap: 5,
   },
 });

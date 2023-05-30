@@ -1,11 +1,12 @@
-import { MaterialIcons } from "@expo/vector-icons";
-import { StyleSheet, View } from "react-native";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { Button } from "./Button";
-import { Content } from "./Content";
-import { Screen } from "./Screen";
-import { ScreenTitle } from "./ScreenTitle";
-import { Text, useThemeColor } from "./Themed";
+import { MaterialIcons } from '@expo/vector-icons';
+import { StyleSheet, View } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+
+import { Button } from './Button';
+import { Content } from './Content';
+import { Screen } from './Screen';
+import { ScreenTitle } from './ScreenTitle';
+import { Text, useThemeColor } from './Themed';
 
 interface ErrorBoundaryProps {
   error: Error;
@@ -13,20 +14,18 @@ interface ErrorBoundaryProps {
 }
 
 export function ErrorBoundary({ error, retry }: ErrorBoundaryProps) {
-  const red = useThemeColor({}, "red");
+  const red = useThemeColor({}, 'red');
   const { bottom } = useSafeAreaInsets();
   return (
     <Screen style={{ paddingBottom: bottom }}>
       <ScreenTitle>Hiba történt</ScreenTitle>
       <Content style={styles.content}>
-        <MaterialIcons name="error" color={red} size={50} />
-        <Text style={styles.text}>
-          Erre a hibára fel is készültünk, meg nem is.
-        </Text>
+        <MaterialIcons name='error' color={red} size={50} />
+        <Text style={styles.text}>Erre a hibára fel is készültünk, meg nem is.</Text>
         <Text style={styles.subText}>{error.message}</Text>
       </Content>
       <View style={styles.buttonContainer}>
-        <Button onPress={retry} leftIcon="autorenew">
+        <Button onPress={retry} leftIcon='autorenew'>
           Újrapróbálás
         </Button>
       </View>
@@ -36,18 +35,18 @@ export function ErrorBoundary({ error, retry }: ErrorBoundaryProps) {
 
 const styles = StyleSheet.create({
   text: {
-    fontFamily: "OpenSansBold",
+    fontFamily: 'OpenSansBold',
   },
   subText: {
-    color: "gray",
+    color: 'gray',
   },
   content: {
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   buttonContainer: {
     padding: 10,
     flex: 1,
-    justifyContent: "flex-end",
+    justifyContent: 'flex-end',
   },
 });
