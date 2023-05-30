@@ -1,6 +1,7 @@
 import { MaterialIcons } from "@expo/vector-icons";
+import { encode } from "base-64";
 import { useSearchParams } from "expo-router";
-import { useRef } from "react";
+import { useMemo, useRef } from "react";
 import { ScrollView, StyleSheet, View } from "react-native";
 
 import { BackButton } from "../components/BackButton";
@@ -12,14 +13,28 @@ import { Screen } from "../components/Screen";
 import { ScreenTitle } from "../components/ScreenTitle";
 import { Text } from "../components/Themed";
 import { TitleBar } from "../components/TitleBar";
+import { useDepartures } from "../network/useDepartures";
 import { Departure } from "../types/departures.type";
 
 export default function Details() {
   const sw = useRef<ScrollView>(null);
   const params = useSearchParams();
-  const { style, departureText, isDelayed, headsign, alert } = JSON.parse(
+  const { data } = useDepartures();
+  const { style, isDelayed, headsign, alert } = JSON.parse(
     params.departure as string
   ) as Departure;
+
+  const selectedDepartureText = useMemo(() => {
+    try {
+      return data?.departures.find(
+        (dep) =>
+          encode(dep.style.icon.text + dep.headsign) ===
+          encode(style.icon.text + headsign)
+      )?.departureText;
+    } catch (e) {
+      return;
+    }
+  }, [style, data]);
 
   return (
     <Screen>
@@ -31,7 +46,11 @@ export default function Details() {
         <Content>
           <View style={styles.horizontal}>
             <Route style={style} />
-            <TimeText isDelayed={isDelayed} departureText={departureText} />
+            <TimeText
+              isUnknown={!selectedDepartureText}
+              isDelayed={isDelayed}
+              departureText={selectedDepartureText ?? "Volt, nincs"}
+            />
           </View>
           <Headsign headsign={headsign} style={styles.headsign} />
           {alert && alert.length > 0 && (
