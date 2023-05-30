@@ -35,7 +35,7 @@ export const VehicleIcons = {
   SUBWAY: "subway",
   TROLLEYBUS: "trolleybus",
   NIGHT_BUS: "night-bus",
-  SUBURBAN_RAILWAY: "suburban_railway",
+  SUBURBAN_RAILWAY: "suburban-railway",
   FERRY: "ferry",
   CHAIRLIFT: "chairlift",
   SIKLO: "siklo",
