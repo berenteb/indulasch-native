@@ -1,12 +1,6 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { SplashScreen } from "expo-router";
-import {
-  createContext,
-  useState,
-  useEffect,
-  PropsWithChildren,
-  useContext,
-} from "react";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { SplashScreen } from 'expo-router';
+import { createContext, PropsWithChildren, useContext, useEffect, useState } from 'react';
 
 export const SettingsContext = createContext({
   hapticsEnabled: true,
@@ -17,7 +11,7 @@ export const SettingsContext = createContext({
   setRadius: (_: number) => {},
 });
 
-const STORAGE_KEY = "@indulasch";
+const STORAGE_KEY = '@indulasch';
 
 export function SettingsProvider({ children }: PropsWithChildren) {
   const [hapticsEnabled, setHapticsEnabled] = useState(true);
@@ -29,13 +23,12 @@ export function SettingsProvider({ children }: PropsWithChildren) {
       try {
         const storedData = await AsyncStorage.getItem(STORAGE_KEY);
         if (storedData) {
-          const { radius: storedRadius, hapticsEnabled: storedHapticsEnabled } =
-            JSON.parse(storedData);
+          const { radius: storedRadius, hapticsEnabled: storedHapticsEnabled } = JSON.parse(storedData);
           setRadius(storedRadius);
           setHapticsEnabled(storedHapticsEnabled);
         }
       } catch (error) {
-        console.error("Error loading data:", error);
+        console.error('Error loading data:', error);
       }
     };
 
@@ -45,12 +38,9 @@ export function SettingsProvider({ children }: PropsWithChildren) {
   useEffect(() => {
     const saveData = async () => {
       try {
-        await AsyncStorage.setItem(
-          STORAGE_KEY,
-          JSON.stringify({ radius, hapticsEnabled })
-        );
+        await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify({ radius, hapticsEnabled }));
       } catch (error) {
-        console.error("Error saving data:", error);
+        console.error('Error saving data:', error);
       }
     };
 

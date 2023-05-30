@@ -1,13 +1,12 @@
-import { StyleSheet, View } from "react-native";
-import { useThemeColor, ViewProps } from "./Themed";
+import { StyleSheet, View } from 'react-native';
+
+import { useThemeColor, ViewProps } from './Themed';
 
 interface ContentProps extends ViewProps {}
 
 export function Content({ style, ...props }: ContentProps) {
-  const backgroundColor = useThemeColor({}, "contentBackground");
-  return (
-    <View style={[styles.container, { backgroundColor }, style]} {...props} />
-  );
+  const backgroundColor = useThemeColor({}, 'contentBackground');
+  return <View style={[styles.container, { backgroundColor }, style]} {...props} />;
 }
 
 const styles = StyleSheet.create({

@@ -1,16 +1,12 @@
-import { StyleSheet, View, ViewProps } from "react-native";
-import { Text } from "../Themed";
+import { StyleSheet, View, ViewProps } from 'react-native';
+
+import { Text } from '../Themed';
 
 interface FormFieldProps extends ViewProps {
   label: string;
 }
 
-export function FormField({
-  label,
-  children,
-  style,
-  ...props
-}: FormFieldProps) {
+export function FormField({ label, children, style, ...props }: FormFieldProps) {
   return (
     <View style={[styles.container, style]} {...props}>
       <Text>{label}</Text>
@@ -22,6 +18,6 @@ export function FormField({
 const styles = StyleSheet.create({
   container: {
     gap: 5,
-    alignItems: "flex-start",
+    alignItems: 'flex-start',
   },
 });
