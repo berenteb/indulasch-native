@@ -1,15 +1,15 @@
-import AirplaneIcon from "../../assets/vehicle-icons/airplane.svg";
-import BusIcon from "../../assets/vehicle-icons/bus.svg";
-import ChairliftIcon from "../../assets/vehicle-icons/chairlift.svg";
-import FerryIcon from "../../assets/vehicle-icons/ferry.svg";
-import MavIcon from "../../assets/vehicle-icons/mav.svg";
-import NightBusIcon from "../../assets/vehicle-icons/night-bus.svg";
-import SikloIcon from "../../assets/vehicle-icons/siklo.svg";
-import SuburbanRailwayIcon from "../../assets/vehicle-icons/suburban-railway.svg";
-import SubwayIcon from "../../assets/vehicle-icons/subway.svg";
-import TramIcon from "../../assets/vehicle-icons/tram.svg";
-import TrolleybusIcon from "../../assets/vehicle-icons/trolleybus.svg";
-import { VehicleIcons } from "../../types/departures.type";
+import AirplaneIcon from '../../assets/vehicle-icons/airplane.svg';
+import BusIcon from '../../assets/vehicle-icons/bus.svg';
+import ChairliftIcon from '../../assets/vehicle-icons/chairlift.svg';
+import FerryIcon from '../../assets/vehicle-icons/ferry.svg';
+import MavIcon from '../../assets/vehicle-icons/mav.svg';
+import NightBusIcon from '../../assets/vehicle-icons/night-bus.svg';
+import SikloIcon from '../../assets/vehicle-icons/siklo.svg';
+import SuburbanRailwayIcon from '../../assets/vehicle-icons/suburban-railway.svg';
+import SubwayIcon from '../../assets/vehicle-icons/subway.svg';
+import TramIcon from '../../assets/vehicle-icons/tram.svg';
+import TrolleybusIcon from '../../assets/vehicle-icons/trolleybus.svg';
+import { VehicleIcons } from '../../types/departures.type';
 
 export function VehicleIcon({ name }: { name: string }) {
   const width = 30;

@@ -1,12 +1,6 @@
-import * as Location from "expo-location";
-import { LocationObject, LocationSubscription } from "expo-location";
-import {
-  createContext,
-  PropsWithChildren,
-  useContext,
-  useEffect,
-  useState,
-} from "react";
+import * as Location from 'expo-location';
+import { LocationObject, LocationSubscription } from 'expo-location';
+import { createContext, PropsWithChildren, useContext, useEffect, useState } from 'react';
 
 type LocationType = { lat: string; lon: string } | undefined;
 
@@ -25,8 +19,7 @@ export const LocationContext = createContext<LocationContextType>({
 export function LocationProvider({ children }: PropsWithChildren) {
   const [granted, setGranted] = useState(false);
   const [location, setLocation] = useState<LocationObject>();
-  const [locationSubscription, setLocationSubscription] =
-    useState<LocationSubscription>();
+  const [locationSubscription, setLocationSubscription] = useState<LocationSubscription>();
 
   useEffect(() => {
     const setup = async () => {
