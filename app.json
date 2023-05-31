@@ -13,9 +13,7 @@
       "resizeMode": "contain",
       "backgroundColor": "#52155A"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "config": {
         "usesNonExemptEncryption": false
