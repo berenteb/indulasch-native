@@ -19,6 +19,13 @@
       },
       "channel": "preview"
     },
+    "staging": {
+      "distribution": "internal",
+      "ios": {
+        "resourceClass": "m1-medium"
+      },
+      "channel": "staging"
+    },
     "production": {
       "android": {
         "autoIncrement": true
