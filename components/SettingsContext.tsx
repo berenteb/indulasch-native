@@ -13,6 +13,8 @@ export const SettingsContext = createContext({
 
 const STORAGE_KEY = '@indulasch';
 
+SplashScreen.preventAutoHideAsync();
+
 export function SettingsProvider({ children }: PropsWithChildren) {
   const [hapticsEnabled, setHapticsEnabled] = useState(true);
   const [storageLoading, setStorageLoading] = useState(true);
@@ -47,6 +49,12 @@ export function SettingsProvider({ children }: PropsWithChildren) {
     saveData();
   }, [radius, hapticsEnabled]);
 
+  useEffect(() => {
+    if (!storageLoading) SplashScreen.hideAsync();
+  }, [storageLoading]);
+
+  if (storageLoading) return null;
+
   return (
     <SettingsContext.Provider
       value={{
@@ -58,7 +66,7 @@ export function SettingsProvider({ children }: PropsWithChildren) {
         getRadius: () => radius,
       }}
     >
-      {storageLoading ? <SplashScreen /> : children}
+      {children}
     </SettingsContext.Provider>
   );
 }
