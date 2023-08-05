@@ -42,7 +42,19 @@
           "isIosBackgroundLocationEnabled": "Engedélyezd az $(PRODUCT_NAME) számára, hogy a jelenlegi helyzetedet használja a közeli indulások meghatározására!",
           "locationAlwaysAndWhenInUsePermission": "Engedélyezd az $(PRODUCT_NAME) számára, hogy a jelenlegi helyzetedet használja a közeli indulások meghatározására!"
         }
-      ]
-    ]
+      ],
+      "expo-router"
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "635e5b7f-3bd0-476c-865f-2a8f04393712"
+      }
+    },
+    "updates": {
+      "url": "https://u.expo.dev/635e5b7f-3bd0-476c-865f-2a8f04393712"
+    },
+    "runtimeVersion": {
+      "policy": "sdkVersion"
+    }
   }
 }
