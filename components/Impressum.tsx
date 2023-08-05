@@ -14,7 +14,9 @@ export function Impressum() {
         Made with <MaterialCommunityIcons name='heart' size={15} color='red' /> by Bálint Berente & Kir-Dev
       </Text>
       <Text style={{ color: gray }}>InduláSch v{Constants.expoConfig?.version}</Text>
-      {Updates.channel !== 'production' && <Text style={{ color: gray }}>Channel: {Updates.channel}</Text>}
+      {Updates.channel && Updates.channel !== 'production' && (
+        <Text style={{ color: gray }}>Channel: {Updates.channel}</Text>
+      )}
     </View>
   );
 }
