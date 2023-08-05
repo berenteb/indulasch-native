@@ -1,5 +1,5 @@
 import { MaterialIcons } from '@expo/vector-icons';
-import { useSearchParams } from 'expo-router';
+import { useRouter, useSearchParams } from 'expo-router';
 import { useMemo, useRef } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 
@@ -13,19 +13,24 @@ import { ScreenTitle } from '../components/ScreenTitle';
 import { Text } from '../components/Themed';
 import { TitleBar } from '../components/TitleBar';
 import { useDepartures } from '../network/useDepartures';
-import { type Departure } from '../types/departures.type';
 
-export default function Details(): JSX.Element {
+export default function Details() {
+  const router = useRouter();
   const sw = useRef<ScrollView>(null);
   const params = useSearchParams();
   const { data } = useDepartures();
-  const { style, isDelayed, headsign, alert } = JSON.parse(params.departure as string) as Departure;
 
-  const selectedDepartureText = useMemo(() => {
-    return data?.departures.find((dep) => dep.style.icon.text + dep.headsign === style.icon.text + headsign)
-      ?.departureText;
-  }, [data, style.icon.text, headsign]);
+  const selectedDeparture = useMemo(() => {
+    return data?.departures.find((d) => d.tripId === params.departureTripId);
+  }, [params.departureTripId]);
 
+  const departureText = data?.departures.find((d) => d.tripId === params.departureTripId)?.departureText;
+
+  if (!selectedDeparture) {
+    router.back();
+    return null;
+  }
+  const { style, isDelayed, headsign, alert } = selectedDeparture;
   return (
     <Screen>
       <TitleBar>
@@ -36,7 +41,7 @@ export default function Details(): JSX.Element {
         <Content>
           <View style={styles.horizontal}>
             <Route style={style} />
-            <TimeText isDelayed={isDelayed} departureText={selectedDepartureText} />
+            <TimeText isDelayed={isDelayed} departureText={departureText} />
           </View>
           <Headsign headsign={headsign} style={styles.headsign} />
           {!!alert && alert.length > 0 && (

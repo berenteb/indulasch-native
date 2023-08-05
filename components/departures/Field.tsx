@@ -20,7 +20,7 @@ export function Field({ departure }: FieldProps) {
       onPress={() => {
         router.push({
           pathname: 'details',
-          params: { departure: JSON.stringify(departure) },
+          params: { departureTripId: departure.tripId },
         });
       }}
     >

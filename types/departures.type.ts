@@ -11,6 +11,7 @@ export type Departure = {
   alert: string[] | undefined;
   isDelayed: boolean;
   departureText: string;
+  tripId: string;
 };
 
 export interface Style {
