@@ -1,8 +1,7 @@
 import axios from 'axios';
-import Constants from 'expo-constants';
 import { decode } from 'html-entities';
-import { API_KEY, API_URL } from '../config/configuration';
 
+import { API_KEY, API_URL } from '../config/configuration';
 import { FutarAPI } from '../types/bkk.type';
 import { Departure, DepartureDto } from '../types/departures.type';
 
