@@ -1,6 +1,7 @@
 import axios from 'axios';
 import Constants from 'expo-constants';
 import { decode } from 'html-entities';
+import { API_KEY, API_URL } from '../config/configuration';
 
 import { FutarAPI } from '../types/bkk.type';
 import { Departure, DepartureDto } from '../types/departures.type';
@@ -8,8 +9,8 @@ import { Departure, DepartureDto } from '../types/departures.type';
 export class BkkService {
   private readonly apiUrl: URL;
   constructor() {
-    this.apiUrl = new URL(Constants.expoConfig?.extra?.apiUrl);
-    this.apiUrl.searchParams.append('key', Constants.expoConfig?.extra?.apiKey);
+    this.apiUrl = new URL(API_URL);
+    this.apiUrl.searchParams.append('key', API_KEY);
   }
 
   async getDepartures(lat: string, lon: string, radius: number) {
