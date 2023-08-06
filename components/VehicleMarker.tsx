@@ -14,9 +14,9 @@ export function VehicleMarker({ routeStyle, alert, ...props }: VehicleMarkerProp
   const backgroundColor = useThemeColor({}, 'contentBackground');
 
   return (
-    <Marker centerOffset={{ x: 0, y: -25 }} {...props}>
+    <Marker style={styles.marker} centerOffset={{ x: 0, y: -25 }} {...props}>
+      <View style={[styles.arrow, { backgroundColor }]} />
       <View style={[styles.container, { backgroundColor }]}>
-        <View style={[styles.arrow, { backgroundColor }]} />
         <Route style={routeStyle} alert={alert} />
       </View>
     </Marker>
@@ -24,15 +24,14 @@ export function VehicleMarker({ routeStyle, alert, ...props }: VehicleMarkerProp
 }
 
 const styles = StyleSheet.create({
+  marker: { alignItems: 'center', flexDirection: 'column-reverse' },
   container: {
     paddingHorizontal: 5,
     paddingVertical: 5,
     borderRadius: 9,
   },
   arrow: {
-    position: 'absolute',
-    bottom: -5,
-    left: '50%',
+    marginTop: -5,
     width: 10,
     height: 10,
     transform: [{ rotate: '45deg' }],
