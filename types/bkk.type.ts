@@ -1,13 +1,13 @@
-export type FutarAPI = {
+export type BkkApiDto<T> = {
   currentTime: number;
   version: number;
   status: string;
   code: number;
   text: string;
-  data: Data;
+  data: T;
 };
 
-export type Data = {
+export type DeparturesData = {
   list?: ListEntity[] | null;
   outOfRange: boolean;
   limitExceeded: boolean;
@@ -137,4 +137,64 @@ export type Trip = {
   directionId: string;
   bikesAllowed: boolean;
   wheelchairAccessible: boolean;
+};
+
+export type TripDetailsData = {
+  limitExceeded: boolean;
+  entry: {
+    serviceDate: string;
+    vertex: string;
+    vehicle: {
+      vehicleId: string;
+      stopId: string;
+      stopSequence: number;
+      routeId: string;
+      bearing: number;
+      location: {
+        lat: number;
+        lon: number;
+      };
+      serviceDate: string;
+      licensePlate: string;
+      label: string;
+      model: string;
+      deviated: false;
+      lastUpdateTime: number;
+      status: string;
+      congestionLevel: null;
+      vehicleRouteType: string;
+      stopDistancePercent: number;
+      wheelchairAccessible: false;
+      capacity: {
+        adults: number;
+      };
+      tripId: string;
+      vertex: string;
+      style: {
+        icon: {
+          name: string;
+          color: string;
+          secondaryColor: string;
+        };
+      };
+    };
+    polyline: {
+      levels: string;
+      points: string;
+      length: number;
+    };
+    alertIds: string[];
+    stopTimes: TripStopTime[];
+  };
+  class: string;
+};
+
+export type TripStopTime = {
+  stopId: string;
+  stopHeadsign: string;
+  departureTime: number;
+  predictedDepartureTime: number;
+  requiresBooking: boolean;
+  stopSequence: number;
+  shapeDistTraveled: number;
 };

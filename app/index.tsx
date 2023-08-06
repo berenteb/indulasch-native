@@ -29,9 +29,7 @@ export default function Index() {
             />
           )}
           {isError && <ErrorMessage message='Nem sikerült lekérdezni az indulásokat.' iconName='error' />}
-          {data?.departures.map((d, i) => (
-            <Field departure={d} key={i} />
-          ))}
+          {data?.departures.map((d, i) => <Field departure={d} key={i} />)}
         </View>
       </ScrollView>
     </Screen>

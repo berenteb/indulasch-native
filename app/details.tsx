@@ -12,25 +12,31 @@ import { Screen } from '../components/Screen';
 import { ScreenTitle } from '../components/ScreenTitle';
 import { Text } from '../components/Themed';
 import { TitleBar } from '../components/TitleBar';
+import { VehicleMap } from '../components/VehicleMap';
 import { useDepartures } from '../network/useDepartures';
+import { useTripDetails } from '../network/useTripDetails';
 
 export default function Details() {
   const router = useRouter();
   const sw = useRef<ScrollView>(null);
   const params = useSearchParams();
-  const { data } = useDepartures();
+  const departures = useDepartures();
+  const tripDetails = useTripDetails(
+    Array.isArray(params.departureTripId) ? params.departureTripId[0] : params.departureTripId
+  );
 
   const selectedDeparture = useMemo(() => {
-    return data?.departures.find((d) => d.tripId === params.departureTripId);
+    return departures.data?.departures.find((d) => d.tripId === params.departureTripId);
   }, [params.departureTripId]);
 
-  const departureText = data?.departures.find((d) => d.tripId === params.departureTripId)?.departureText;
+  const departureText = departures.data?.departures.find((d) => d.tripId === params.departureTripId)?.departureText;
 
   if (!selectedDeparture) {
     router.back();
     return null;
   }
   const { style, isDelayed, headsign, alert } = selectedDeparture;
+  const location = tripDetails.data?.entry?.vehicle?.location;
   return (
     <Screen>
       <TitleBar>
@@ -58,6 +64,11 @@ export default function Details() {
             </View>
           )}
         </Content>
+        {location && (
+          <Content style={{ height: 300 }}>
+            <VehicleMap location={{ latitude: location.lat, longitude: location.lon }} vehicle={{ style, alert }} />
+          </Content>
+        )}
       </ScrollView>
     </Screen>
   );

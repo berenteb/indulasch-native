@@ -2,16 +2,10 @@ import axios from 'axios';
 import { decode } from 'html-entities';
 
 import { API_KEY, API_URL } from '../config/configuration';
-import { FutarAPI } from '../types/bkk.type';
+import { BkkApiDto, DeparturesData, TripDetailsData } from '../types/bkk.type';
 import { Departure, DepartureDto } from '../types/departures.type';
 
 export class BkkService {
-  private readonly apiUrl: URL;
-  constructor() {
-    this.apiUrl = new URL(API_URL);
-    this.apiUrl.searchParams.append('key', API_KEY);
-  }
-
   async getDepartures(lat: string, lon: string, radius: number) {
     const apiData = await this.getDeparturesApiData(lat, lon, radius);
 
@@ -48,11 +42,27 @@ export class BkkService {
     return apiResponse;
   }
 
+  async getTripDetails(tripId: string) {
+    const apiData = await this.getTripDetailsApiData(tripId);
+    return apiData.data;
+  }
+
   private async getDeparturesApiData(lat: string, lon: string, radius: number) {
     const url = this.getDeparturesApiUrl(lat, lon, radius).toString();
 
     try {
-      const response = await axios.get<FutarAPI>(url);
+      const response = await axios.get<BkkApiDto<DeparturesData>>(url);
+      return response.data;
+    } catch (e) {
+      throw e;
+    }
+  }
+
+  private async getTripDetailsApiData(tripId: string) {
+    const url = this.getTripDetailsApiUrl(tripId).toString();
+
+    try {
+      const response = await axios.get<BkkApiDto<TripDetailsData>>(url);
       return response.data;
     } catch (e) {
       throw e;
@@ -60,16 +70,24 @@ export class BkkService {
   }
 
   private getDeparturesApiUrl(lat: string, lon: string, radius: number) {
-    const searchParams = new URLSearchParams();
-    searchParams.append('radius', radius.toString());
-    searchParams.append('lon', lon);
-    searchParams.append('lat', lat);
-    searchParams.append('clientLon', lon);
-    searchParams.append('clientLat', lat);
-    searchParams.append('minutesBefore', '0');
-    searchParams.append('limit', '30');
-    searchParams.append('groupLimit', '1');
-    searchParams.append('onlyDepartures', 'true');
-    return [this.apiUrl, searchParams].join('&');
+    const url = new URL(API_URL + '/arrivals-and-departures-for-location');
+    url.searchParams.append('key', API_KEY);
+    url.searchParams.append('radius', radius.toString());
+    url.searchParams.append('lon', lon);
+    url.searchParams.append('lat', lat);
+    url.searchParams.append('clientLon', lon);
+    url.searchParams.append('clientLat', lat);
+    url.searchParams.append('minutesBefore', '0');
+    url.searchParams.append('limit', '30');
+    url.searchParams.append('groupLimit', '1');
+    url.searchParams.append('onlyDepartures', 'true');
+    return url.toString();
+  }
+
+  private getTripDetailsApiUrl(tripId: string) {
+    const url = new URL(API_URL + '/trip-details');
+    url.searchParams.append('key', API_KEY);
+    url.searchParams.append('tripId', tripId);
+    return url.toString();
   }
 }
