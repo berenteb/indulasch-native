@@ -19,7 +19,16 @@ jobs:
             echo "You must provide an EXPO_TOKEN secret linked to this project's Expo account in this repo's secrets."
             exit 1
           fi
-
+      - name: Check for ENV variables
+        run: |
+          if [ -z "${{ secrets.EXPO_PUBLIC_API_KEY }}" ]; then
+            echo "API_TOKEN is not set"
+            exit 1
+          fi
+          if [ -z "${{ vars.EXPO_PUBLIC_API_URL }}" ]; then
+            echo "API_TOKEN is not set"
+            exit 1
+          fi
       - name: Checkout repository
         uses: actions/checkout@v3
 
