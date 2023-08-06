@@ -9,6 +9,8 @@
     "test": "jest --watchAll",
     "build:ios": "eas build -p ios",
     "build:android": "eas build -p android",
+    "build:ios:staging": "eas build -p ios -e staging",
+    "build:android:staging": "eas build -p android -e staging",
     "submit:ios": "eas submit -p ios",
     "submit:android": "eas submit -p android",
     "lint": "eslint .",

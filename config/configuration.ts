@@ -1,4 +1,4 @@
-import * as env from 'env-var';
+import Constants from 'expo-constants';
 
-export const API_URL = env.get('EXPO_PUBLIC_API_URL').required().asString();
-export const API_KEY = env.get('EXPO_PUBLIC_API_KEY').required().asString();
+export const API_URL = Constants.expoConfig?.extra?.apiUrl;
+export const API_KEY = Constants.expoConfig?.extra?.apiKey;
