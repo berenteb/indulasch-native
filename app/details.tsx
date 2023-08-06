@@ -10,13 +10,14 @@ import { Route } from '../components/departures/Route';
 import { TimeText } from '../components/departures/TimeText';
 import { Screen } from '../components/Screen';
 import { ScreenTitle } from '../components/ScreenTitle';
-import { Text } from '../components/Themed';
+import { Text, useThemeColor } from '../components/Themed';
 import { TitleBar } from '../components/TitleBar';
 import { VehicleMap } from '../components/VehicleMap';
 import { useDepartures } from '../network/useDepartures';
 import { useTripDetails } from '../network/useTripDetails';
 
 export default function Details() {
+  const textColor = useThemeColor({}, 'primaryText');
   const router = useRouter();
   const sw = useRef<ScrollView>(null);
   const params = useSearchParams();
@@ -36,7 +37,8 @@ export default function Details() {
     return null;
   }
   const { style, isDelayed, headsign, alert } = selectedDeparture;
-  const location = tripDetails.data?.entry?.vehicle?.location;
+  const vehicle = tripDetails.data?.entry?.vehicle;
+  const location = vehicle?.location;
   return (
     <Screen>
       <TitleBar>
@@ -67,6 +69,18 @@ export default function Details() {
         {location && (
           <Content style={{ height: 300 }}>
             <VehicleMap location={{ latitude: location.lat, longitude: location.lon }} vehicle={{ style, alert }} />
+          </Content>
+        )}
+        {vehicle && (
+          <Content>
+            <View style={styles.horizontal}>
+              <Text>{vehicle.label}</Text>
+              <MaterialIcons
+                name={vehicle.wheelchairAccessible ? 'accessible' : 'not-accessible'}
+                size={25}
+                color={textColor}
+              />
+            </View>
           </Content>
         )}
       </ScrollView>
