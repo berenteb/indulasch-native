@@ -4,47 +4,80 @@ import MapView, { Region } from 'react-native-maps';
 
 import { Style } from '../types/departures.type';
 import { Button } from './Button';
+import { useLocationContext } from './LocationContext';
+import { UserMarker } from './UserMarker';
 import { VehicleMarker } from './VehicleMarker';
 
 interface VehicleMapProps {
-  location: Pick<Region, 'latitude' | 'longitude'>;
+  vehiclePosition: Pick<Region, 'latitude' | 'longitude'>;
   vehicle: {
     style: Style;
     alert: string[] | undefined;
   };
 }
 
-export function VehicleMap({ location, vehicle }: VehicleMapProps) {
-  const [isManual, setIsManual] = useState(false);
+export function VehicleMap({ vehiclePosition, vehicle }: VehicleMapProps) {
+  const { location } = useLocationContext();
+  const [followVehicle, setFollowVehicle] = useState(true);
+  const [followUser, setFollowUser] = useState(false);
+  const userLocation = location
+    ? { latitude: parseFloat(location.lat), longitude: parseFloat(location.lon) }
+    : undefined;
   const [region, setRegion] = useState<Region>({
     latitudeDelta: 0.01,
     longitudeDelta: 0.01,
-    ...location,
+    ...vehiclePosition,
   });
 
   useEffect(() => {
-    if (isManual) return;
-    setRegion({ latitudeDelta: region.latitudeDelta, longitudeDelta: region.longitudeDelta, ...location });
-  }, [location, isManual]);
+    if (followVehicle)
+      setRegion({ latitudeDelta: region.latitudeDelta, longitudeDelta: region.longitudeDelta, ...vehiclePosition });
+    if (followUser && userLocation)
+      setRegion({ latitudeDelta: region.latitudeDelta, longitudeDelta: region.longitudeDelta, ...userLocation });
+  }, [vehiclePosition, followVehicle, followUser]);
 
   return (
     <View>
-      <MapView style={styles.map} region={region} onTouchStart={() => setIsManual(true)} onRegionChange={setRegion}>
+      <MapView
+        style={styles.map}
+        region={region}
+        onTouchStart={() => {
+          setFollowUser(false);
+          setFollowVehicle(false);
+        }}
+        onRegionChange={setRegion}
+      >
         <VehicleMarker
           routeStyle={vehicle.style}
           alert={vehicle.alert}
-          coordinate={{ latitude: location.latitude, longitude: location.longitude }}
+          coordinate={{ latitude: vehiclePosition.latitude, longitude: vehiclePosition.longitude }}
         />
+        {location && (
+          <UserMarker coordinate={{ latitude: parseFloat(location.lat), longitude: parseFloat(location.lon) }} />
+        )}
       </MapView>
-      {isManual && (
-        <Button
-          style={styles.button}
-          onPress={() => {
-            setIsManual(false);
-          }}
-          leftIcon='filter-center-focus'
-        />
-      )}
+      <View style={styles.buttonContainer}>
+        {!followVehicle && (
+          <Button
+            style={styles.button}
+            onPress={() => {
+              setFollowVehicle(true);
+              setFollowUser(false);
+            }}
+            leftIcon='filter-center-focus'
+          />
+        )}
+        {!followUser && (
+          <Button
+            style={styles.button}
+            onPress={() => {
+              setFollowUser(true);
+              setFollowVehicle(false);
+            }}
+            leftIcon='navigation'
+          />
+        )}
+      </View>
     </View>
   );
 }
@@ -56,11 +89,14 @@ const styles = StyleSheet.create({
     borderRadius: 5,
   },
   button: {
-    position: 'absolute',
     width: 50,
     height: 50,
+    gap: 0,
+  },
+  buttonContainer: {
+    position: 'absolute',
     bottom: 5,
     right: 5,
-    gap: 0,
+    gap: 5,
   },
 });

@@ -68,7 +68,10 @@ export default function Details() {
         </Content>
         {location && (
           <Content style={{ height: 300 }}>
-            <VehicleMap location={{ latitude: location.lat, longitude: location.lon }} vehicle={{ style, alert }} />
+            <VehicleMap
+              vehiclePosition={{ latitude: location.lat, longitude: location.lon }}
+              vehicle={{ style, alert }}
+            />
           </Content>
         )}
         {vehicle && (
