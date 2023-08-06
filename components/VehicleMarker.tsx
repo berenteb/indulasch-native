@@ -17,7 +17,7 @@ export function VehicleMarker({ routeStyle, alert, coordinate, ...props }: Vehic
 
   return (
     <Marker style={styles.marker} centerOffset={{ x: 0, y: -25 }} coordinate={currentCoords} {...props}>
-      <View style={[styles.arrow, { backgroundColor }]} />
+      <View style={[styles.arrow, { backgroundColor: '#' + routeStyle.color }]} />
       <View style={[styles.container, { backgroundColor }]}>
         <Route style={routeStyle} alert={alert} />
       </View>
@@ -26,7 +26,7 @@ export function VehicleMarker({ routeStyle, alert, coordinate, ...props }: Vehic
 }
 
 const styles = StyleSheet.create({
-  marker: { alignItems: 'center', flexDirection: 'column-reverse' },
+  marker: { alignItems: 'center', flexDirection: 'column-reverse', paddingBottom: 2 },
   container: {
     paddingHorizontal: 5,
     paddingVertical: 5,
