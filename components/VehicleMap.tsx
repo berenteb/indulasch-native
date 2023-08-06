@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import { StyleSheet, View } from 'react-native';
-import MapView, { Region } from 'react-native-maps';
+import { Platform, StyleSheet, View } from 'react-native';
+import MapView, { PROVIDER_GOOGLE, Region } from 'react-native-maps';
 
 import { Style } from '../types/departures.type';
 import { Button } from './Button';
@@ -39,8 +39,10 @@ export function VehicleMap({ vehiclePosition, vehicle }: VehicleMapProps) {
   return (
     <View>
       <MapView
+        provider={Platform.OS === 'android' ? PROVIDER_GOOGLE : undefined}
         style={styles.map}
-        region={region}
+        initialRegion={region}
+        region={followVehicle || followUser ? region : undefined}
         onTouchStart={() => {
           setFollowUser(false);
           setFollowVehicle(false);
