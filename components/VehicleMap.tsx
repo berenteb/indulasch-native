@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { StyleSheet, View } from 'react-native';
 import MapView, { Region } from 'react-native-maps';
 
 import { Style } from '../types/departures.type';
@@ -27,29 +28,39 @@ export function VehicleMap({ location, vehicle }: VehicleMapProps) {
   }, [location, isManual]);
 
   return (
-    <MapView
-      style={{
-        width: '100%',
-        height: '100%',
-        flexDirection: 'column-reverse',
-      }}
-      region={region}
-      onTouchStart={() => setIsManual(true)}
-      onRegionChange={setRegion}
-    >
-      <VehicleMarker
-        routeStyle={vehicle.style}
-        alert={vehicle.alert}
-        coordinate={{ latitude: location.latitude, longitude: location.longitude }}
-      />
+    <View>
+      <MapView style={styles.map} region={region} onTouchStart={() => setIsManual(true)} onRegionChange={setRegion}>
+        <VehicleMarker
+          routeStyle={vehicle.style}
+          alert={vehicle.alert}
+          coordinate={{ latitude: location.latitude, longitude: location.longitude }}
+        />
+      </MapView>
       {isManual && (
         <Button
+          style={styles.button}
           onPress={() => {
             setIsManual(false);
           }}
           leftIcon='filter-center-focus'
         />
       )}
-    </MapView>
+    </View>
   );
 }
+
+const styles = StyleSheet.create({
+  map: {
+    width: '100%',
+    height: '100%',
+    borderRadius: 5,
+  },
+  button: {
+    position: 'absolute',
+    width: 50,
+    height: 50,
+    bottom: 5,
+    right: 5,
+    gap: 0,
+  },
+});
