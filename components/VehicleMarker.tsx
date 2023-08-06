@@ -2,6 +2,7 @@ import { StyleSheet, View } from 'react-native';
 import { MapMarkerProps, Marker } from 'react-native-maps';
 
 import { Style } from '../types/departures.type';
+import { useAnimatedCoordinates } from '../utils/useAnimatedCoordinates';
 import { Route } from './departures/Route';
 import { useThemeColor } from './Themed';
 
@@ -10,11 +11,12 @@ interface VehicleMarkerProps extends MapMarkerProps {
   alert: string[] | undefined;
 }
 
-export function VehicleMarker({ routeStyle, alert, ...props }: VehicleMarkerProps) {
+export function VehicleMarker({ routeStyle, alert, coordinate, ...props }: VehicleMarkerProps) {
+  const currentCoords = useAnimatedCoordinates(coordinate);
   const backgroundColor = useThemeColor({}, 'contentBackground');
 
   return (
-    <Marker style={styles.marker} centerOffset={{ x: 0, y: -25 }} {...props}>
+    <Marker style={styles.marker} centerOffset={{ x: 0, y: -25 }} coordinate={currentCoords} {...props}>
       <View style={[styles.arrow, { backgroundColor }]} />
       <View style={[styles.container, { backgroundColor }]}>
         <Route style={routeStyle} alert={alert} />
