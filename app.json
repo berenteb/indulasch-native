@@ -20,7 +20,7 @@
       },
       "supportsTablet": true,
       "bundleIdentifier": "hu.kirdev.indulasch",
-      "buildNumber": "10",
+      "buildNumber": "11",
       "infoPlist": {
         "NSLocationAlwaysAndWhenInUseUsageDescription": "Engedélyezd az $(PRODUCT_NAME) számára, hogy a jelenlegi helyzetedet használja a közeli indulások meghatározására!",
         "NSLocationWhenInUseUsageDescription": "Engedélyezd az $(PRODUCT_NAME) számára, hogy a jelenlegi helyzetedet használja a közeli indulások meghatározására!"
@@ -33,7 +33,7 @@
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#52155A"
       },
-      "versionCode": 9
+      "versionCode": 10
     },
     "plugins": [
       [
