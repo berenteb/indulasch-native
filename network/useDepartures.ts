@@ -15,7 +15,12 @@ export function useDepartures() {
     async () => {
       const location = getLocation();
       if (!location || !granted) return;
-      return await bkkService.getDepartures(location.lat, location.lon, getRadius());
+      try {
+        return await bkkService.getDepartures(location.lat, location.lon, getRadius());
+      } catch (e) {
+        console.error(e);
+        throw e;
+      }
     },
     {
       enabled: granted && !!location,
