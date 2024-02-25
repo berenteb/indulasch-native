@@ -6,8 +6,8 @@ import { BkkApiDto, DeparturesData, TripDetailsData } from '../types/bkk.type';
 import { Departure, DepartureDto } from '../types/departures.type';
 
 export class BkkService {
-  async getDepartures(lat: string, lon: string, radius: number) {
-    const apiData = await this.getDeparturesApiData(lat, lon, radius);
+  async getDepartures(lat: string, lon: string, radius: number, limit: number) {
+    const apiData = await this.getDeparturesApiData(lat, lon, radius, limit);
 
     const apiResponse: DepartureDto = { departures: [] };
 
@@ -47,8 +47,8 @@ export class BkkService {
     return apiData.data;
   }
 
-  private async getDeparturesApiData(lat: string, lon: string, radius: number) {
-    const url = this.getDeparturesApiUrl(lat, lon, radius).toString();
+  private async getDeparturesApiData(lat: string, lon: string, radius: number, limit: number) {
+    const url = this.getDeparturesApiUrl(lat, lon, radius, limit).toString();
 
     try {
       const response = await axios.get<BkkApiDto<DeparturesData>>(url);
@@ -69,7 +69,7 @@ export class BkkService {
     }
   }
 
-  private getDeparturesApiUrl(lat: string, lon: string, radius: number) {
+  private getDeparturesApiUrl(lat: string, lon: string, radius: number, limit: number) {
     const url = new URL(API_URL + '/arrivals-and-departures-for-location');
     url.searchParams.append('key', API_KEY);
     url.searchParams.append('radius', radius.toString());
@@ -78,7 +78,7 @@ export class BkkService {
     url.searchParams.append('clientLon', lon);
     url.searchParams.append('clientLat', lat);
     url.searchParams.append('minutesBefore', '0');
-    url.searchParams.append('limit', '30');
+    url.searchParams.append('limit', limit.toString());
     url.searchParams.append('groupLimit', '1');
     url.searchParams.append('onlyDepartures', 'true');
     return url.toString();

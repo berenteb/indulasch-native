@@ -8,7 +8,7 @@ import { BkkService } from '../services/bkk.service';
 const bkkService = new BkkService();
 
 export function useDepartures() {
-  const { getRadius, getHapticsEnabled } = useSettingsContext();
+  const { getRadius, getHapticsEnabled, getDeparturesLimit } = useSettingsContext();
   const { getLocation, granted, location } = useLocationContext();
   return useQuery(
     'departures',
@@ -16,7 +16,7 @@ export function useDepartures() {
       const location = getLocation();
       if (!location || !granted) return;
       try {
-        return await bkkService.getDepartures(location.lat, location.lon, getRadius());
+        return await bkkService.getDepartures(location.lat, location.lon, getRadius(), getDeparturesLimit());
       } catch (e) {
         console.error(e);
         throw e;
