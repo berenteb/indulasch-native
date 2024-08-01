@@ -1,5 +1,5 @@
 import { MaterialIcons } from '@expo/vector-icons';
-import { useRouter, useSearchParams } from 'expo-router';
+import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useMemo, useRef } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 
@@ -20,7 +20,7 @@ export default function Details() {
   const textColor = useThemeColor({}, 'primaryText');
   const router = useRouter();
   const sw = useRef<ScrollView>(null);
-  const params = useSearchParams();
+  const params = useLocalSearchParams();
   const departures = useDepartures();
   const tripDetails = useTripDetails(
     Array.isArray(params.departureTripId) ? params.departureTripId[0] : params.departureTripId
