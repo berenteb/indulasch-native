@@ -34,9 +34,9 @@ export function SettingsProvider({ children }: PropsWithChildren) {
             hapticsEnabled: storedHapticsEnabled,
             departuresLimit: storedDeparturesLimit,
           } = JSON.parse(storedData);
-          setRadius(storedRadius);
-          setDeparturesLimit(storedDeparturesLimit);
-          setHapticsEnabled(storedHapticsEnabled);
+          setRadius(storedRadius ?? 400);
+          setDeparturesLimit(storedDeparturesLimit ?? 30);
+          setHapticsEnabled(storedHapticsEnabled ?? true);
         }
       } catch (error) {
         console.error('Error loading data:', error);

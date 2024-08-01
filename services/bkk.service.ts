@@ -78,7 +78,7 @@ export class BkkService {
     url.searchParams.append('clientLon', lon);
     url.searchParams.append('clientLat', lat);
     url.searchParams.append('minutesBefore', '0');
-    url.searchParams.append('limit', limit.toString());
+    url.searchParams.append('limit', String(limit));
     url.searchParams.append('groupLimit', '1');
     url.searchParams.append('onlyDepartures', 'true');
     return url.toString();
