@@ -1,4 +1,5 @@
 import { RefreshControl, ScrollView, StyleSheet } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { Field } from '../components/departures/Field';
 import { ErrorMessage } from '../components/ErrorMessage';
@@ -13,6 +14,7 @@ import { useDepartures } from '../network/useDepartures';
 export default function Index() {
   const { granted } = useLocationContext();
   const backgroundColor = useThemeColor({}, 'homeBackground');
+  const { bottom } = useSafeAreaInsets();
   const { data, isLoading, refetch, isError } = useDepartures();
   return (
     <Screen style={{ backgroundColor }}>
@@ -21,7 +23,14 @@ export default function Index() {
         <SettingsButton />
       </TitleBar>
       <ScrollView refreshControl={<RefreshControl refreshing={isLoading} onRefresh={refetch} />}>
-        <View style={styles.content}>
+        <View
+          style={[
+            styles.content,
+            {
+              paddingBottom: bottom + 10,
+            },
+          ]}
+        >
           {!granted && (
             <ErrorMessage
               message='Engedélyezned kell a helymeghatározást az eszköz beállításaiban!'
