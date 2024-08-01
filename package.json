@@ -15,8 +15,8 @@
     "submit:android": "eas submit -p android",
     "lint": "eslint .",
     "lint:fix": "eslint --fix",
-    "prettier": "prettier -c .",
-    "prettier:fix": "prettier --write ."
+    "format": "prettier -c .",
+    "format:fix": "prettier --write ."
   },
   "jest": {
     "preset": "jest-expo"

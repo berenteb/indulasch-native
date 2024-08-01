@@ -41,4 +41,4 @@ jobs:
           npm install --only=dev
 
       - name: Run Prettier
-        run: npm run prettier
+        run: npm run format
