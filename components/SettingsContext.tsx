@@ -9,6 +9,9 @@ export const SettingsContext = createContext({
   radius: 400,
   getRadius: () => 400 as number,
   setRadius: (_: number) => {},
+  departuresLimit: 30,
+  getDeparturesLimit: () => 30 as number,
+  setDeparturesLimit: (_: number) => {},
 });
 
 const STORAGE_KEY = '@indulasch';
@@ -19,14 +22,20 @@ export function SettingsProvider({ children }: PropsWithChildren) {
   const [hapticsEnabled, setHapticsEnabled] = useState(true);
   const [storageLoading, setStorageLoading] = useState(true);
   const [radius, setRadius] = useState(400);
+  const [departuresLimit, setDeparturesLimit] = useState(30);
 
   useEffect(() => {
     const loadData = async () => {
       try {
         const storedData = await AsyncStorage.getItem(STORAGE_KEY);
         if (storedData) {
-          const { radius: storedRadius, hapticsEnabled: storedHapticsEnabled } = JSON.parse(storedData);
+          const {
+            radius: storedRadius,
+            hapticsEnabled: storedHapticsEnabled,
+            departuresLimit: storedDeparturesLimit,
+          } = JSON.parse(storedData);
           setRadius(storedRadius);
+          setDeparturesLimit(storedDeparturesLimit);
           setHapticsEnabled(storedHapticsEnabled);
         }
       } catch (error) {
@@ -40,7 +49,7 @@ export function SettingsProvider({ children }: PropsWithChildren) {
   useEffect(() => {
     const saveData = async () => {
       try {
-        await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify({ radius, hapticsEnabled }));
+        await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify({ radius, hapticsEnabled, departuresLimit }));
       } catch (error) {
         console.error('Error saving data:', error);
       }
@@ -64,6 +73,9 @@ export function SettingsProvider({ children }: PropsWithChildren) {
         radius,
         setRadius,
         getRadius: () => radius,
+        departuresLimit,
+        setDeparturesLimit,
+        getDeparturesLimit: () => departuresLimit,
       }}
     >
       {children}
