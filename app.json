@@ -4,7 +4,7 @@
     "name": "IndulaSch",
     "slug": "indulasch",
     "scheme": "indulasch",
-    "version": "1.3.0",
+    "version": "1.4.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "userInterfaceStyle": "automatic",
@@ -43,7 +43,9 @@
           "locationAlwaysAndWhenInUsePermission": "Engedélyezd az $(PRODUCT_NAME) számára, hogy a jelenlegi helyzetedet használja a közeli indulások meghatározására!"
         }
       ],
-      "expo-router"
+      "expo-router",
+      "expo-font",
+      "expo-web-browser"
     ],
     "extra": {
       "eas": {
