@@ -18,12 +18,17 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Install Dev Dependencies
-        run: |
-          npm install --only=dev
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 22.x
+          cache: yarn
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
 
       - name: Run ESLint
-        run: npm run lint
+        run: yarn lint
 
   prettier:
     name: Prettier Check
@@ -36,9 +41,14 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Install Dev Dependencies
-        run: |
-          npm install --only=dev
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 22.x
+          cache: yarn
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
 
       - name: Run Prettier
-        run: npm run format
+        run: yarn format
