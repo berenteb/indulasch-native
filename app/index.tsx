@@ -22,7 +22,9 @@ export default function Index() {
         <Logo width={222} height={40} />
         <SettingsButton />
       </TitleBar>
-      <ScrollView refreshControl={<RefreshControl refreshing={isLoading} onRefresh={refetch} />}>
+      <ScrollView
+        refreshControl={<RefreshControl refreshing={isLoading} onRefresh={() => void refetch()} />}
+      >
         <View
           style={[
             styles.content,

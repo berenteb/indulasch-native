@@ -93,12 +93,11 @@ const styles = StyleSheet.create({
   button: {
     width: 50,
     height: 50,
-    gap: 0,
   },
   buttonContainer: {
     position: 'absolute',
-    bottom: 5,
-    right: 5,
-    gap: 5,
+    bottom: 8,
+    right: 8,
+    gap: 8,
   },
 });

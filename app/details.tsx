@@ -1,25 +1,22 @@
 import { MaterialIcons } from '@expo/vector-icons';
-import { useLocalSearchParams, useRouter } from 'expo-router';
-import { useMemo, useRef } from 'react';
+import { Stack, useLocalSearchParams, useRouter } from 'expo-router';
+import { useMemo } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 
-import { BackButton } from '../components/BackButton';
 import { Content } from '../components/Content';
 import { Headsign } from '../components/departures/Headsign';
 import { Route } from '../components/departures/Route';
 import { TimeText } from '../components/departures/TimeText';
-import { Screen } from '../components/Screen';
-import { ScreenTitle } from '../components/ScreenTitle';
 import { Text, useThemeColor } from '../components/Themed';
-import { TitleBar } from '../components/TitleBar';
 import { VehicleMap } from '../components/VehicleMap';
 import { useDepartures } from '../network/useDepartures';
 import { useTripDetails } from '../network/useTripDetails';
 
 export default function Details() {
   const textColor = useThemeColor({}, 'primaryText');
+  const tint = useThemeColor({}, 'tint');
+  const backgroundColor = useThemeColor({}, 'screenBackground');
   const router = useRouter();
-  const sw = useRef<ScrollView>(null);
   const params = useLocalSearchParams();
   const departures = useDepartures();
   const tripDetails = useTripDetails(
@@ -39,13 +36,25 @@ export default function Details() {
   const { style, isDelayed, headsign, alert } = selectedDeparture;
   const vehicle = tripDetails.data?.entry?.vehicle;
   const location = vehicle?.location;
+
   return (
-    <Screen>
-      <TitleBar>
-        <BackButton />
-      </TitleBar>
-      <ScreenTitle>Részletek</ScreenTitle>
-      <ScrollView ref={sw}>
+    <>
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          title: 'Részletek',
+          headerLargeTitleEnabled: true,
+          headerTintColor: tint,
+          headerTitleStyle: { color: textColor },
+          headerLargeTitleStyle: { color: textColor },
+          headerBackTitle: 'Vissza',
+        }}
+      />
+      <ScrollView
+        contentInsetAdjustmentBehavior='automatic'
+        style={[styles.scroll, { backgroundColor }]}
+        contentContainerStyle={styles.contentContainer}
+      >
         <Content>
           <View style={styles.horizontal}>
             <Route style={style} />
@@ -87,11 +96,17 @@ export default function Details() {
           </Content>
         )}
       </ScrollView>
-    </Screen>
+    </>
   );
 }
 
 const styles = StyleSheet.create({
+  scroll: {
+    flex: 1,
+  },
+  contentContainer: {
+    paddingBottom: 24,
+  },
   horizontal: {
     flexDirection: 'row',
     justifyContent: 'space-between',

@@ -8,11 +8,6 @@
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "userInterfaceStyle": "automatic",
-    "splash": {
-      "image": "./assets/images/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#52155A"
-    },
     "assetBundlePatterns": [
       "**/*"
     ],
@@ -47,7 +42,17 @@
       ],
       "expo-router",
       "expo-font",
-      "expo-web-browser"
+      "expo-web-browser",
+      [
+        "expo-splash-screen",
+        {
+          "image": "./assets/images/splash.png",
+          "resizeMode": "contain",
+          "backgroundColor": "#52155A",
+          "enableFullScreenImage_legacy": true
+        }
+      ],
+      "expo-status-bar"
     ],
     "extra": {
       "eas": {
