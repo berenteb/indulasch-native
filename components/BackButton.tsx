@@ -1,26 +1,32 @@
 import { AntDesign } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
-import { Pressable, StyleSheet, View } from 'react-native';
+import { Pressable, StyleSheet } from 'react-native';
 
+import { Glass } from './Glass';
 import { Text, useThemeColor } from './Themed';
 
 export function BackButton() {
   const color = useThemeColor({}, 'tint');
   const { back } = useRouter();
   return (
-    <Pressable onPress={back}>
-      <View style={styles.container}>
-        <AntDesign name='left' color={color} size={30} />
-        <Text style={{ color: color }}>Vissza</Text>
-      </View>
-    </Pressable>
+    <Glass isInteractive style={styles.glass}>
+      <Pressable onPress={() => back()} style={styles.pressable} accessibilityRole='button' accessibilityLabel='Vissza'>
+        <AntDesign name='left' color={color} size={22} />
+        <Text style={{ color }}>Vissza</Text>
+      </Pressable>
+    </Glass>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
+  glass: {
+    borderRadius: 22,
+  },
+  pressable: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 5,
+    gap: 4,
+    paddingHorizontal: 12,
+    paddingVertical: 8,
   },
 });

@@ -1,4 +1,10 @@
-import { Text as DefaultText, useColorScheme, View as DefaultView } from 'react-native';
+import {
+  Text as DefaultText,
+  TextProps as RNTextProps,
+  useColorScheme,
+  View as DefaultView,
+  ViewProps as RNViewProps,
+} from 'react-native';
 
 import Colors from '../constants/Colors';
 
@@ -21,8 +27,8 @@ type ThemeProps = {
   darkColor?: string;
 };
 
-export type TextProps = ThemeProps & DefaultText['props'];
-export type ViewProps = ThemeProps & DefaultView['props'];
+export type TextProps = ThemeProps & RNTextProps;
+export type ViewProps = ThemeProps & RNViewProps;
 
 export function Text(props: TextProps) {
   const { style, lightColor, darkColor, ...otherProps } = props;

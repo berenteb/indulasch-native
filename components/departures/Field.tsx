@@ -1,7 +1,8 @@
 import { useRouter } from 'expo-router';
-import { Pressable, StyleSheet, View } from 'react-native';
+import { Pressable, StyleSheet, useColorScheme } from 'react-native';
 
 import { Departure } from '../../types/departures.type';
+import { Glass } from '../Glass';
 import { useThemeColor } from '../Themed';
 import { Headsign } from './Headsign';
 import { Route } from './Route';
@@ -13,37 +14,49 @@ interface FieldProps {
 
 export function Field({ departure }: FieldProps) {
   const backgroundColor = useThemeColor({}, 'contentBackground');
+  const scheme = useColorScheme() ?? 'light';
+  const frostTint = scheme === 'dark' ? 'rgba(255, 255, 255, 0.18)' : 'rgba(255, 255, 255, 0.72)';
   const router = useRouter();
   const { style, headsign, alert, departureText, isDelayed } = departure;
   return (
-    <Pressable
-      onPress={() => {
-        router.push({
-          pathname: 'details',
-          params: { departureTripId: departure.tripId },
-        });
-      }}
+    <Glass
+      isInteractive
+      tintColor={frostTint}
+      glassEffectStyle='regular'
+      fallback='blur'
+      fallbackColor={backgroundColor}
+      style={styles.glass}
     >
-      <View style={[styles.container, { backgroundColor }]}>
+      <Pressable
+        onPress={() => {
+          router.push({
+            pathname: 'details',
+            params: { departureTripId: departure.tripId },
+          });
+        }}
+        style={styles.pressable}
+        accessibilityRole='button'
+      >
         <Route style={style} alert={alert} />
         <Headsign headsign={headsign} />
         <TimeText departureText={departureText} isDelayed={isDelayed} />
-      </View>
-    </Pressable>
+      </Pressable>
+    </Glass>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
+  glass: {
     marginTop: 10,
-    paddingHorizontal: 5,
-    paddingVertical: 5,
-    borderRadius: 9,
+    borderRadius: 16,
     width: '100%',
+  },
+  pressable: {
+    paddingHorizontal: 8,
+    paddingVertical: 8,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    flex: 1,
     gap: 20,
   },
 });

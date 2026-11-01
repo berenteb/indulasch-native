@@ -1,19 +1,27 @@
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, type StyleProp, type ViewStyle } from 'react-native';
 
-import { useThemeColor, ViewProps } from './Themed';
+import { Glass } from './Glass';
+import { useThemeColor } from './Themed';
 
-interface ContentProps extends ViewProps {}
+interface ContentProps {
+  children?: React.ReactNode;
+  style?: StyleProp<ViewStyle>;
+}
 
-export function Content({ style, ...props }: ContentProps) {
+export function Content({ style, children }: ContentProps) {
   const backgroundColor = useThemeColor({}, 'contentBackground');
-  return <View style={[styles.container, { backgroundColor }, style]} {...props} />;
+  return (
+    <Glass style={[styles.container, style]} fallbackColor={backgroundColor}>
+      {children}
+    </Glass>
+  );
 }
 
 const styles = StyleSheet.create({
   container: {
     margin: 10,
     padding: 10,
-    borderRadius: 9,
+    borderRadius: 16,
     gap: 20,
   },
 });

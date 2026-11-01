@@ -1,43 +1,67 @@
 import { MaterialIcons } from '@expo/vector-icons';
-import { useState } from 'react';
-import { Pressable, StyleSheet, Text, ViewProps } from 'react-native';
+import { Pressable, StyleSheet, Text, type StyleProp, type ViewStyle } from 'react-native';
 
+import { Glass } from './Glass';
 import { useThemeColor } from './Themed';
 
-interface ButtonProps extends ViewProps {
+interface ButtonProps {
   onPress: () => void;
   leftIcon?: keyof typeof MaterialIcons.glyphMap;
   rightIcon?: keyof typeof MaterialIcons.glyphMap;
+  style?: StyleProp<ViewStyle>;
+  children?: React.ReactNode;
 }
 
-export function Button({ onPress, leftIcon, rightIcon, style, children, ...props }: ButtonProps) {
-  const [pressed, setPressed] = useState(false);
+export function Button({ onPress, leftIcon, rightIcon, style, children }: ButtonProps) {
   const backgroundColor = useThemeColor({}, 'theme');
   const color = 'white';
+  const isIconOnly = !children && (!!leftIcon || !!rightIcon);
+
   return (
-    <Pressable
-      onPress={onPress}
-      onPressIn={() => setPressed(true)}
-      onPressOut={() => setPressed(false)}
-      style={[styles.button, { backgroundColor, opacity: pressed ? 0.8 : 1 }, style]}
-      {...props}
+    <Glass
+      isInteractive
+      tintColor={backgroundColor}
+      fallbackColor={backgroundColor}
+      style={[styles.button, isIconOnly && styles.iconOnly, style]}
     >
-      {leftIcon && <MaterialIcons name={leftIcon} color={color} size={25} />}
-      <Text style={[styles.text, { color }]}>{children}</Text>
-      {rightIcon && <MaterialIcons name={rightIcon} color={color} size={25} />}
-    </Pressable>
+      <Pressable
+        onPress={onPress}
+        style={({ pressed }) => [styles.pressable, pressed && styles.pressed, isIconOnly && styles.iconOnlyPressable]}
+        accessibilityRole='button'
+      >
+        {leftIcon && <MaterialIcons name={leftIcon} color={color} size={isIconOnly ? 24 : 25} />}
+        {children != null && children !== false && <Text style={[styles.text, { color }]}>{children}</Text>}
+        {rightIcon && <MaterialIcons name={rightIcon} color={color} size={isIconOnly ? 24 : 25} />}
+      </Pressable>
+    </Glass>
   );
 }
 
 const styles = StyleSheet.create({
   button: {
-    paddingHorizontal: 10,
-    paddingVertical: 10,
-    borderRadius: 5,
+    borderRadius: 18,
+  },
+  iconOnly: {
+    borderRadius: 25,
+    width: 50,
+    height: 50,
+  },
+  pressable: {
+    paddingHorizontal: 14,
+    paddingVertical: 12,
     alignItems: 'center',
     flexDirection: 'row',
     justifyContent: 'center',
     gap: 5,
+  },
+  iconOnlyPressable: {
+    paddingHorizontal: 0,
+    paddingVertical: 0,
+    width: '100%',
+    height: '100%',
+  },
+  pressed: {
+    opacity: 0.85,
   },
   text: {
     fontFamily: 'OpenSansBold',
