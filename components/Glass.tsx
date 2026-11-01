@@ -1,10 +1,5 @@
 import { BlurView } from 'expo-blur';
-import {
-  GlassView,
-  isGlassEffectAPIAvailable,
-  isLiquidGlassAvailable,
-  type GlassViewProps,
-} from 'expo-glass-effect';
+import { GlassView, isGlassEffectAPIAvailable, isLiquidGlassAvailable, type GlassViewProps } from 'expo-glass-effect';
 import { useEffect, useState } from 'react';
 import { AccessibilityInfo, Platform, StyleSheet, View, type StyleProp, type ViewStyle } from 'react-native';
 
@@ -52,12 +47,7 @@ export function Glass({
 
   if (canUseLiquidGlass() && !reduceTransparency) {
     return (
-      <GlassView
-        style={style}
-        isInteractive={isInteractive}
-        tintColor={tintColor}
-        glassEffectStyle={glassEffectStyle}
-      >
+      <GlassView style={style} isInteractive={isInteractive} tintColor={tintColor} glassEffectStyle={glassEffectStyle}>
         {children}
       </GlassView>
     );
