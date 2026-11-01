@@ -22,9 +22,7 @@ export default function Index() {
         <Logo width={222} height={40} />
         <SettingsButton />
       </TitleBar>
-      <ScrollView
-        refreshControl={<RefreshControl refreshing={isLoading} onRefresh={() => void refetch()} />}
-      >
+      <ScrollView refreshControl={<RefreshControl refreshing={isLoading} onRefresh={() => void refetch()} />}>
         <View
           style={[
             styles.content,
@@ -40,7 +38,9 @@ export default function Index() {
             />
           )}
           {isError && <ErrorMessage message='Nem sikerült lekérdezni az indulásokat.' iconName='error' />}
-          {data?.departures.map((d, i) => <Field departure={d} key={i} />)}
+          {data?.departures.map((d, i) => (
+            <Field departure={d} key={i} />
+          ))}
           {data?.departures.length === 0 && (
             <Text style={{ textAlign: 'center', marginTop: 50 }}>Nincsenek indulások a közelben.</Text>
           )}
