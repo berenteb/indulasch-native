@@ -63,7 +63,8 @@ export function Glass({
     );
   }
 
-  if (fallback === 'blur' && Platform.OS !== 'web' && !reduceTransparency) {
+  // Android BlurView materials often render as a muddy gray; keep frost blur on iOS only.
+  if (fallback === 'blur' && Platform.OS === 'ios' && !reduceTransparency) {
     return (
       <BlurView intensity={95} tint='systemThickMaterial' style={[styles.blur, style]}>
         {children}
