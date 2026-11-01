@@ -23,7 +23,7 @@ export function Field({ departure }: FieldProps) {
       isInteractive
       tintColor={frostTint}
       glassEffectStyle='regular'
-      fallback='blur'
+      fallback='solid'
       fallbackColor={backgroundColor}
       style={styles.glass}
     >

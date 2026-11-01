@@ -1,4 +1,4 @@
-import { StyleSheet, type StyleProp, type ViewStyle } from 'react-native';
+import { StyleSheet, useColorScheme, type StyleProp, type ViewStyle } from 'react-native';
 
 import { Glass } from './Glass';
 import { useThemeColor } from './Themed';
@@ -10,8 +10,16 @@ interface ContentProps {
 
 export function Content({ style, children }: ContentProps) {
   const backgroundColor = useThemeColor({}, 'contentBackground');
+  const scheme = useColorScheme() ?? 'light';
+  const frostTint = scheme === 'dark' ? 'rgba(255, 255, 255, 0.18)' : 'rgba(255, 255, 255, 0.72)';
   return (
-    <Glass style={[styles.container, style]} fallbackColor={backgroundColor}>
+    <Glass
+      style={[styles.container, style]}
+      tintColor={frostTint}
+      glassEffectStyle='regular'
+      fallback='solid'
+      fallbackColor={backgroundColor}
+    >
       {children}
     </Glass>
   );
